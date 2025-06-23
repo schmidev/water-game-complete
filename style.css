@@ -1,0 +1,134 @@
+body {
+  background: #77A8BB;
+}
+.menu-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.menu-container h1 {
+  margin-bottom: 40px;
+  font-size: 2.5em;
+  color: #333;
+}
+.menu-btn {
+  background: #FFC907;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 40px;
+  font-size: 1.2em;
+  margin: 12px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.menu-btn:hover {
+  background: #e6b800;
+}
+.jerry-can {
+  width: 120px;
+  height: auto;
+  margin-bottom: 32px;
+}
+.tutorial-container {
+  min-height: 100vh;
+  background: #77A8BB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+.tutorial-container h2 {
+  margin-bottom: 24px;
+}
+.tutorial-container p {
+  font-size: 1.2em;
+  margin-bottom: 16px;
+}
+.tutorial-container ol {
+  text-align: left;
+  background: rgba(255,255,255,0.15);
+  padding: 16px 32px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.1em;
+}
+.back-btn {
+  margin-top: 32px;
+  background: #FFC907;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-block;
+}
+.back-btn:hover {
+  background: #e6b800;
+}
+
+/* Water bottle shape using CSS */
+.water-bottle {
+  position: relative;
+  width: 80px;
+  height: 200px;
+  margin: 40px auto;
+}
+.water-bottle-body {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 140px;
+  background: #b3e5fc;
+  border-radius: 30px 30px 20px 20px;
+  border: 3px solid #0288d1;
+  z-index: 1;
+}
+.water-bottle-body .jerry-can-inside {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: auto;
+  z-index: 20;
+  pointer-events: none;
+}
+.filter-layer {
+  z-index: 10;
+}
+.water-bottle-neck {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 40px;
+  background: #81d4fa;
+  border-radius: 12px 12px 10px 10px;
+  border: 2px solid #0288d1;
+  z-index: 2;
+}
+.water-bottle-cap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 18px;
+  background: #0288d1;
+  border-radius: 6px 6px 8px 8px;
+  z-index: 3;
+}
+.water-bottle.upside-down {
+  transform: rotate(180deg);
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIY Water Filter Game</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .game-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #77A8BB;
+    }
+    .drag-items {
+      display: flex;
+      gap: 32px;
+      margin-top: 40px;
+    }
+    .drag-item {
+      width: 64px;
+      height: 64px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      border: 2px solid #0288d1;
+      transition: box-shadow 0.2s;
+    }
+    .drag-item img {
+      width: 48px;
+      height: 48px;
+      pointer-events: none;
+    }
+    .water-bottle-area {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+    .filter-layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 24px;
+      border-radius: 8px;
+      opacity: 0.85;
+      z-index: 5;
+      border: 1px solid #0288d1;
+    }
+    .layer-cotton { background: #fffde7; top: 32px; }
+    .layer-charcoal { background: #424242; top: 56px; }
+    .layer-sand { background: #ffe082; top: 80px; }
+    .layer-gravel { background: #bdbdbd; top: 104px; }
+  </style>
+</head>
+<body>
+  <div class="game-area">
+    <h2>Build Your DIY Water Filter</h2>
+    <div id="timer" style="font-size:1.5em;color:#fff;margin-bottom:16px;"></div>
+    <button id="reset-btn" class="menu-btn" style="display:none;margin-bottom:16px;">Reset</button>
+    <div class="water-bottle-area" style="position: relative; height: 200px;">
+      <div class="water-bottle upside-down" id="bottle">
+        <div class="water-bottle-body" id="bottle-body">
+          <img src="images/charity-water-jerry-can.png" class="jerry-can-inside" alt="Jerry Can Inside" />
+        </div>
+        <div class="water-bottle-neck"></div>
+        <div class="water-bottle-cap"></div>
+      </div>
+    </div>
+    <div class="drag-items">
+      <div class="drag-item" draggable="true" id="cotton">
+        <img src="images/cotton-balls.png" alt="Cotton Balls">
+      </div>
+      <div class="drag-item" draggable="true" id="charcoal">
+        <img src="images/charcaol-jar.png" alt="Charcoal Jar">
+      </div>
+      <div class="drag-item" draggable="true" id="sand">
+        <img src="images/sand-jar.png" alt="Sand Jar">
+      </div>
+      <div class="drag-item" draggable="true" id="gravel">
+        <img src="images/gravel-jar.png" alt="Gravel Jar">
+      </div>
+    </div>
+    <div id="message" style="margin-top:32px;color:#fff;font-size:1.2em;"></div>
+    <div id="top-times" style="position:absolute;top:12px;right:18px;font-size:0.95em;color:#fff;text-align:right;"></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
