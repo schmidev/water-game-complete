@@ -54,6 +54,7 @@ function addLayer(itemId) {
   } else {
     bottleBody.appendChild(div);
   }
+  // Always move the jerry-can-inside image to the end so it stays visible
 }
 
 function resetBottle() {
@@ -102,6 +103,17 @@ function updateTopTimes(newTime) {
   } else {
     topTimesDiv.innerHTML = '';
   }
+}
+
+function enableGame(enabled) {
+  items.forEach(item => {
+    item.draggable = enabled;
+    if (!enabled) {
+      item.classList.add('disabled-item');
+    } else {
+      item.classList.remove('disabled-item');
+    }
+  });
 }
 
 // Show top times on load
