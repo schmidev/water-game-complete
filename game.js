@@ -342,4 +342,7 @@ if (mode === '2') {
 if (mode === '2') {
   const dragItems = document.querySelector('.drag-items');
   if (dragItems) dragItems.style.display = 'none';
+} else if (mode === '1') {
+  const dragItems = document.querySelector('.drag-items');
+  if (dragItems) dragItems.style.display = 'flex';
 }
