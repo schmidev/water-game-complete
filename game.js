@@ -408,6 +408,9 @@ if (mode === '2') {
     timerDiv.textContent = 'Time: ' + timeLeft + 's';
   }
   updateTimer();
+  // Show grid and bottles immediately
+  randomizeGrid();
+  whackAMoleAnim();
   // Move bottles more slowly (every 3.0s)
   let moleInterval = setInterval(() => {
     randomizeGrid();
