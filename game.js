@@ -91,6 +91,23 @@ resetBtn.onclick = function() {
   enableGame(true);
 };
 
+// Add Return to Menu button for mode 1
+const urlParams = new URLSearchParams(window.location.search);
+const mode = urlParams.get('mode') || '1';
+
+if (mode === '1') {
+  const gameArea = document.querySelector('.game-area');
+  if (gameArea && !document.getElementById('return-menu-btn')) {
+    const menuBtn = document.createElement('button');
+    menuBtn.textContent = 'Return to Menu';
+    menuBtn.className = 'menu-btn';
+    menuBtn.id = 'return-menu-btn';
+    menuBtn.style.marginTop = '16px';
+    menuBtn.onclick = () => window.location.href = 'index.html';
+    gameArea.appendChild(menuBtn);
+  }
+}
+
 function updateTopTimes(newTime) {
   if (typeof newTime === 'number') {
     topTimes.push(newTime);
@@ -127,9 +144,6 @@ window.onload = function() {
 };
 
 //Second game mode code:
-const urlParams = new URLSearchParams(window.location.search);
-const mode = urlParams.get('mode') || '1';
-
 if (mode === '2') {
   // Remove normal game UI
   document.querySelector('.jerry-can').style.display = 'none';
@@ -141,9 +155,19 @@ if (mode === '2') {
   document.getElementById('top-times').style.display = 'none';
   document.getElementById('message').style.display = 'none';
 
-  // Move score above h2
+  // Move score above h2 and add jerry-can above score
   const gameArea = document.querySelector('.game-area');
   const h2 = gameArea.querySelector('h2');
+  // Add jerry-can image above score
+  const jerryCanImg = document.createElement('img');
+  jerryCanImg.src = 'images/charity-water-jerry-can.png';
+  jerryCanImg.className = 'jerry-can';
+  jerryCanImg.alt = 'Charity Water Jerry Can';
+  jerryCanImg.style.width = '70px';
+  jerryCanImg.style.height = 'auto';
+  jerryCanImg.style.marginBottom = '8px';
+  gameArea.insertBefore(jerryCanImg, h2);
+
   let score = 0;
   const scoreDiv = document.createElement('div');
   scoreDiv.id = 'score-counter';
@@ -152,6 +176,36 @@ if (mode === '2') {
   scoreDiv.style.marginBottom = '8px';
   scoreDiv.textContent = 'Score: 0';
   gameArea.insertBefore(scoreDiv, h2);
+
+  // Top scores display
+  let topScores = JSON.parse(localStorage.getItem('topScores') || '[]');
+  const topScoresDiv = document.createElement('div');
+  topScoresDiv.id = 'top-scores';
+  topScoresDiv.style.position = 'absolute';
+  topScoresDiv.style.top = '60px';
+  topScoresDiv.style.right = '24px';
+  topScoresDiv.style.color = '#222';
+  topScoresDiv.style.background = 'rgba(255,255,255,0.85)';
+  topScoresDiv.style.padding = '10px 18px';
+  topScoresDiv.style.borderRadius = '8px';
+  topScoresDiv.style.fontSize = '1.1em';
+  topScoresDiv.style.textAlign = 'right';
+  topScoresDiv.style.zIndex = '200';
+  function updateTopScores(newScore) {
+    if (typeof newScore === 'number') {
+      topScores.push(newScore);
+      topScores.sort((a, b) => b - a);
+      if (topScores.length > 3) topScores = topScores.slice(0, 3);
+      localStorage.setItem('topScores', JSON.stringify(topScores));
+    }
+    if (topScores.length > 0) {
+      topScoresDiv.innerHTML = '<b>Top Scores:</b><br>' + topScores.map((s, i) => `${i+1}. ${s}`).join('<br>');
+    } else {
+      topScoresDiv.innerHTML = '';
+    }
+  }
+  updateTopScores();
+  document.body.appendChild(topScoresDiv);
 
   // Add 3x3 grid for bottles
   const grid = document.createElement('div');
@@ -354,24 +408,46 @@ if (mode === '2') {
     timerDiv.textContent = 'Time: ' + timeLeft + 's';
   }
   updateTimer();
-  const countdown = setInterval(() => {
-    timeLeft--;
-    updateTimer();
-    if (timeLeft <= 0) {
-      clearInterval(countdown);
-      timerDiv.textContent = 'Time: 0s - Game Over!';
-      grid.style.pointerEvents = 'none';
-    }
-  }, 1000);
-
-  // Start game
-  randomizeGrid();
-  whackAMoleAnim();
   // Move bottles more slowly (every 3.0s)
-  setInterval(() => {
+  let moleInterval = setInterval(() => {
     randomizeGrid();
     whackAMoleAnim();
   }, 3000);
+
+  let countdown = setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateTimer();
+    }
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      clearInterval(moleInterval); // Stop bottles from moving
+      timerDiv.textContent = 'Time: 0s - Game Over!';
+      grid.style.pointerEvents = 'none';
+      updateTopScores(score);
+      // Show reset and return to menu buttons
+      const btnContainer = document.createElement('div');
+      btnContainer.style.display = 'flex';
+      btnContainer.style.justifyContent = 'center';
+      btnContainer.style.gap = '24px';
+      btnContainer.style.margin = '32px auto 0 auto';
+      btnContainer.style.width = '100%';
+
+      const resetBtn = document.createElement('button');
+      resetBtn.textContent = 'Restart';
+      resetBtn.className = 'menu-btn';
+      resetBtn.onclick = () => window.location.reload();
+      btnContainer.appendChild(resetBtn);
+
+      const menuBtn = document.createElement('button');
+      menuBtn.textContent = 'Return to Menu';
+      menuBtn.className = 'menu-btn';
+      menuBtn.onclick = () => window.location.href = 'index.html';
+      btnContainer.appendChild(menuBtn);
+
+      gameArea.appendChild(btnContainer);
+    }
+  }, 1000);
 }
 
 // Hide drag-items if mode=2

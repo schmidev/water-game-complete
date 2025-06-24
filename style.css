@@ -189,3 +189,6 @@ body {
     font-size: 0.9em;
   }
 }
+header, footer {
+  background: #e6b800 !important;
+}
