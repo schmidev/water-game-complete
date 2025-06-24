@@ -141,17 +141,17 @@ if (mode === '2') {
   document.getElementById('top-times').style.display = 'none';
   document.getElementById('message').style.display = 'none';
 
-  // Add score counter
+  // Move score above h2
+  const gameArea = document.querySelector('.game-area');
+  const h2 = gameArea.querySelector('h2');
   let score = 0;
   const scoreDiv = document.createElement('div');
   scoreDiv.id = 'score-counter';
-  scoreDiv.style.position = 'absolute';
-  scoreDiv.style.top = '16px';
-  scoreDiv.style.left = '24px';
   scoreDiv.style.color = '#fff';
   scoreDiv.style.fontSize = '1.5em';
+  scoreDiv.style.marginBottom = '8px';
   scoreDiv.textContent = 'Score: 0';
-  document.body.appendChild(scoreDiv);
+  gameArea.insertBefore(scoreDiv, h2);
 
   // Add 3x3 grid for bottles
   const grid = document.createElement('div');
@@ -186,7 +186,10 @@ if (mode === '2') {
     bottleWrap.style.width = '60px';
     bottleWrap.style.height = '120px';
     bottleWrap.style.overflow = 'hidden';
+    bottleWrap.style.background = 'transparent';
     if (isCorrect) bottleWrap.classList.add('yes');
+    if (isCorrect) bottleWrap.style.cursor = 'pointer';
+    else bottleWrap.style.cursor = 'pointer'; // All bottles clickable
 
     const bottle = document.createElement('div');
     bottle.className = 'water-bottle upside-down small-bottle';
@@ -264,6 +267,51 @@ if (mode === '2') {
     bottle.appendChild(neck);
     bottle.appendChild(cap);
     bottleWrap.appendChild(bottle);
+
+    // Add click handler directly to each mole-hole
+    bottleWrap.addEventListener('click', function() {
+      if (bottleWrap.classList.contains('yes')) {
+        score += 1000;
+        scoreDiv.textContent = 'Score: ' + score;
+        bottleWrap.classList.remove('yes');
+        bottleWrap.style.cursor = 'default';
+        // Show green checkmark for correct
+        const checkMark = document.createElement('div');
+        checkMark.textContent = '✓';
+        checkMark.style.position = 'absolute';
+        checkMark.style.top = '40px';
+        checkMark.style.left = '0';
+        checkMark.style.width = '100%';
+        checkMark.style.textAlign = 'center';
+        checkMark.style.fontSize = '3em';
+        checkMark.style.color = 'limegreen';
+        checkMark.style.pointerEvents = 'none';
+        checkMark.style.userSelect = 'none';
+        checkMark.style.zIndex = '10';
+        bottleWrap.appendChild(checkMark);
+      } else if (!bottleWrap.classList.contains('clicked-x')) {
+        // Show red X for incorrect
+        const xMark = document.createElement('div');
+        xMark.textContent = '✗';
+        xMark.style.position = 'absolute';
+        xMark.style.top = '40px';
+        xMark.style.left = '0';
+        xMark.style.width = '100%';
+        xMark.style.textAlign = 'center';
+        xMark.style.fontSize = '3em';
+        xMark.style.color = 'red';
+        xMark.style.pointerEvents = 'none';
+        xMark.style.userSelect = 'none';
+        xMark.style.zIndex = '10';
+        bottleWrap.appendChild(xMark);
+        bottleWrap.classList.add('clicked-x');
+        bottleWrap.style.cursor = 'default';
+        score -= 500;
+        if (score < 0) score = 0;
+        scoreDiv.textContent = 'Score: ' + score;
+      }
+    });
+
     return bottleWrap;
   }
 
@@ -298,21 +346,8 @@ if (mode === '2') {
     }, 200);
   }
 
-  // Click handler
-  grid.addEventListener('click', function(e) {
-    let target = e.target;
-    while (target && !target.classList.contains('mole-hole')) {
-      target = target.parentElement;
-    }
-    if (target && target.classList.contains('yes')) {
-      score++;
-      scoreDiv.textContent = 'Score: ' + score;
-      target.classList.remove('yes');
-    }
-  });
-
   // Timer
-  let timeLeft = 60;
+  let timeLeft = 30;
   const timerDiv = document.getElementById('timer');
   timerDiv.style.display = 'block';
   function updateTimer() {
@@ -332,10 +367,11 @@ if (mode === '2') {
   // Start game
   randomizeGrid();
   whackAMoleAnim();
+  // Move bottles more slowly (every 3.0s)
   setInterval(() => {
     randomizeGrid();
     whackAMoleAnim();
-  }, 1200);
+  }, 3000);
 }
 
 // Hide drag-items if mode=2
