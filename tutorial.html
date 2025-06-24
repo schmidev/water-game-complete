@@ -20,6 +20,44 @@
       <li>Sand</li>
       <li>Gravel</li>
     </ol>
+    <h3>Second Game Mode: Water Filter Collection</h3>
+    <ul>
+      <li>Click bottles with the correct filter layers (from bottom to top: Gravel, Sand, Charcoal, Cotton) to score points.</li>
+      <li>Each correct bottle gives +1000 points. Incorrect bottles deduct 500 points (minimum score is 0).</li>
+      <li>Only bottles with the correct order count as correct. Bottles appear and disappear in a 3x3 grid.</li>
+      <li>You have 30 seconds to score as many points as possible.</li>
+      <li>Try to beat your high score!</li>
+    </ul>
+    <div style="display:flex;gap:32px;align-items:flex-end;margin:24px 0 16px 0;justify-content:center;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="position:relative;width:40px;height:100px;margin:0 auto;">
+          <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:32px;height:70px;background:#b3e5fc;border-radius:16px 16px 10px 10px;border:2px solid #0288d1;z-index:1;">
+            <div style="position:absolute;top:56px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#bdbdbd;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+            <div style="position:absolute;top:40px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#ffe082;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+            <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#424242;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+            <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#fffde7;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+          </div>
+          <div style="position:absolute;top:2px;left:50%;transform:translateX(-50%);width:14px;height:20px;background:#81d4fa;border-radius:6px 6px 5px 5px;border:1px solid #0288d1;z-index:2;"></div>
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:10px;height:8px;background:#0288d1;border-radius:3px 3px 4px 4px;z-index:3;"></div>
+          <div style="position:absolute;top:40px;left:0;width:100%;text-align:center;font-size:2em;color:limegreen;z-index:10;pointer-events:none;user-select:none;">✓</div>
+        </div>
+        <div style="margin-top:8px;font-size:1em;color:#222;">Correct</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="position:relative;width:40px;height:100px;margin:0 auto;">
+          <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:32px;height:70px;background:#b3e5fc;border-radius:16px 16px 10px 10px;border:2px solid #0288d1;z-index:1;">
+            <div style="position:absolute;top:56px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#ffe082;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+            <div style="position:absolute;top:40px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#bdbdbd;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+            <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#424242;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+            <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:28px;height:12px;background:#fffde7;border-radius:6px;opacity:0.85;border:1px solid #0288d1;"></div>
+          </div>
+          <div style="position:absolute;top:2px;left:50%;transform:translateX(-50%);width:14px;height:20px;background:#81d4fa;border-radius:6px 6px 5px 5px;border:1px solid #0288d1;z-index:2;"></div>
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:10px;height:8px;background:#0288d1;border-radius:3px 3px 4px 4px;z-index:3;"></div>
+          <div style="position:absolute;top:40px;left:0;width:100%;text-align:center;font-size:2em;color:red;z-index:10;pointer-events:none;user-select:none;">✗</div>
+        </div>
+        <div style="margin-top:8px;font-size:1em;color:#222;">Incorrect</div>
+      </div>
+    </div>
     <a href="menu.html" class="back-btn">Back to Menu</a>
   </div>
   <footer style="width:100%;background:#0288d1;padding:12px 0;text-align:center;position:fixed;bottom:0;left:0;z-index:100;">
